@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -8,11 +8,25 @@ import Service from "./pages/Service";
 import Product from "./pages/Product";
 import Content from "./pages/Content";
 import { Box } from "@mui/material";
+import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 
 const App = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+  };
+
+  const theme = createTheme({
+    palette: {
+      mode: isDarkMode ? "dark" : "light",
+    },
+  });
   return (
+    <ThemeProvider theme={theme}>
     <Router>
-      <Header />
+    <CssBaseline />
+    <Header toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
       <Box>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -24,6 +38,7 @@ const App = () => {
       </Box>
       <Footer />
     </Router>
+    </ThemeProvider>
   );
 };
 

@@ -14,8 +14,11 @@ import BuildIcon from "@mui/icons-material/Build";
 import InfoIcon from "@mui/icons-material/Info";
 import StoreIcon from "@mui/icons-material/Store";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
-const Header = () => {
+const Header = ({ toggleTheme, isDarkMode }) => {
   return (
     <AppBar position="sticky" sx={{ backgroundColor: "#1f2937" }}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -144,13 +147,18 @@ const Header = () => {
           </Button>
         </Box>
 
-        {/* Right: Help Button */}
-        <Button
-          variant="contained"
-          sx={{ backgroundColor: "#f59e0b", color: "#fff" }}
-        >
-          Help
-        </Button>
+        {/* Right: Help & Theme Toggle */}
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <IconButton onClick={toggleTheme} sx={{ color: "#fff" }}>
+            {isDarkMode ? <DarkModeIcon /> : <LightModeIcon />}
+          </IconButton>
+          <Button
+            variant="contained"
+            sx={{ backgroundColor: "#f59e0b", color: "#fff" }}
+          >
+            Help
+          </Button>
+        </div>
       </Toolbar>
     </AppBar>
   );

@@ -4,8 +4,7 @@ import { Typography, Box } from "@mui/material";
 const Home = () => (
   <Box
     sx={{
-      padding: 4,
-      height: "100vh", // Full viewport height
+      height: "calc(100vh - 64px)", // Full viewport height
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
