@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, TextField, Button, Typography } from "@mui/material";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import emailjs from "emailjs-com";
 
 const Content = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +9,8 @@ const Content = () => {
     message: "",
     phone: "",
   });
+  const [isSent, setIsSent] = useState(false); // Track email sent status
+  const [error, setError] = useState(false); // Track email error status
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "YOUR_GOOGLE_MAPS_API_KEY", // Replace with your API key
@@ -19,8 +22,31 @@ const Content = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    alert("Message Sent!");
+
+    emailjs
+      .send(
+        "service_2p50xoe", // Your EmailJS Service ID
+        "template_uxmd71j", // Your EmailJS Template ID
+        {
+          name: formData.name,
+          message: formData.message,
+          phone: formData.phone,
+        },
+        "SXGkdyudamOZ9MSHo" // Your EmailJS Public Key
+      )
+      .then(
+        (result) => {
+          console.log("Email sent successfully:", result.text);
+          setIsSent(true); // Set the success status
+          setError(false); // Reset error status if previously set
+          setFormData({ name: "", message: "", phone: "" }); // Reset form
+        },
+        (error) => {
+          console.error("Error sending email:", error);
+          setIsSent(false);
+          setError(true); // Set the error status
+        }
+      );
   };
 
   return (
@@ -56,10 +82,24 @@ const Content = () => {
           onChange={handleChange}
           required
         />
-        <Button variant="contained" type="submit" sx={{ backgroundColor: "#1f2937" }}>
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{ backgroundColor: "#1f2937" }}
+        >
           Send
         </Button>
       </Box>
+      {isSent && (
+        <Typography sx={{ marginTop: 2, color: "green" }}>
+          Your message has been sent successfully!
+        </Typography>
+      )}
+      {error && (
+        <Typography sx={{ marginTop: 2, color: "red" }}>
+          Failed to send the message. Please try again later.
+        </Typography>
+      )}
 
       {/* Google Map */}
       <Box sx={{ marginTop: 4, height: "400px", width: "100%" }}>
