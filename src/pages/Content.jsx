@@ -13,7 +13,7 @@ const Content = () => {
   const [error, setError] = useState(false); // Track email error status
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "YOUR_GOOGLE_MAPS_API_KEY", // Replace with your API key
+    googleMapsApiKey: "AIzaSyA1sLmdnpYp9h-YEx6_ULHO2F7bFwuOdPE", // Replace with your API key
   });
 
   const handleChange = (e) => {
@@ -51,65 +51,75 @@ const Content = () => {
 
   return (
     <Box sx={{ padding: 4 }}>
-      <Typography variant="h4" gutterBottom>
-        Contact Us
-      </Typography>
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        sx={{ display: "flex", flexDirection: "column", gap: 2, maxWidth: 400 }}
-      >
-        <TextField
-          name="name"
-          label="Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-        <TextField
-          name="message"
-          label="Message"
-          multiline
-          rows={4}
-          value={formData.message}
-          onChange={handleChange}
-          required
-        />
-        <TextField
-          name="phone"
-          label="Phone Number"
-          value={formData.phone}
-          onChange={handleChange}
-          required
-        />
-        <Button
-          variant="contained"
-          type="submit"
-          sx={{ backgroundColor: "#1f2937" }}
+      <Box sx={{
+        display:'flex', flexDirection:'column', alignItems:'center'
+      }}>
+        <Typography variant="h4" gutterBottom>
+          Contact Us
+        </Typography>
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            maxWidth: 400,
+            width: "100%",
+          }}
         >
-          Send
-        </Button>
+          <TextField
+            name="name"
+            label="Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+          <TextField
+            name="message"
+            label="Message"
+            multiline
+            rows={4}
+            value={formData.message}
+            onChange={handleChange}
+            required
+          />
+          <TextField
+            name="phone"
+            label="Phone Number"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+          />
+          <Button
+            variant="contained"
+            type="submit"
+            sx={{ backgroundColor: "#1f2937" }}
+          >
+            Send
+          </Button>
+        </Box>
+        {isSent && (
+          <Typography sx={{ marginTop: 2, color: "green" }}>
+            Your message has been sent successfully!
+          </Typography>
+        )}
+        {error && (
+          <Typography sx={{ marginTop: 2, color: "red" }}>
+            Failed to send the message. Please try again later.
+          </Typography>
+        )}
       </Box>
-      {isSent && (
-        <Typography sx={{ marginTop: 2, color: "green" }}>
-          Your message has been sent successfully!
-        </Typography>
-      )}
-      {error && (
-        <Typography sx={{ marginTop: 2, color: "red" }}>
-          Failed to send the message. Please try again later.
-        </Typography>
-      )}
 
       {/* Google Map */}
       <Box sx={{ marginTop: 4, height: "400px", width: "100%" }}>
         {isLoaded ? (
           <GoogleMap
             mapContainerStyle={{ height: "100%", width: "100%" }}
-            zoom={10}
-            center={{ lat: 37.7749, lng: -122.4194 }} // Replace with your desired location
+            zoom={16}
+            center={{ lat: 23.8742178, lng: 90.3831819 }} // Replace with your desired location
           >
-            <Marker position={{ lat: 37.7749, lng: -122.4194 }} />
+            <Marker position={{ lat: 23.8742178, lng: 90.3831819 }} />
           </GoogleMap>
         ) : (
           <Typography>Loading Map...</Typography>
