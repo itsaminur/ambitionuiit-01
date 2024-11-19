@@ -22,11 +22,49 @@ const App = () => {
     setCurrentLanguage((prevLang) => (prevLang === "en" ? "bn" : "en"));
   };
 
-  const theme = createTheme({
-    palette: {
-      mode: isDarkMode ? "dark" : "light",
-    },
-  });
+
+    // Define themes
+    const lightTheme = createTheme({
+      palette: {
+        mode: "light",
+        primary: {
+          main: "#1976d2", // Light theme primary color
+        },
+        secondary: {
+          main: "#f50057", // Light theme secondary color
+        },
+        background: {
+          default: "#f3f4f6", // Light theme background color
+          paper: "#ffffff",
+        },
+        text: {
+          primary: "#000000",
+          secondary: "#5f6368",
+        },
+      },
+    });
+  
+    const darkTheme = createTheme({
+      palette: {
+        mode: "dark",
+        primary: {
+          main: "#90caf9", // Dark theme primary color
+        },
+        secondary: {
+          main: "#f48fb1", // Dark theme secondary color
+        },
+        background: {
+          default: "#121212", // Dark theme background color
+          paper: "#1e1e1e",
+        },
+        text: {
+          primary: "#ffffff",
+          secondary: "#9e9e9e",
+        },
+      },
+    });
+  
+    const theme = isDarkMode ? darkTheme : lightTheme;
 
   return (
     <ThemeProvider theme={theme}>

@@ -14,16 +14,40 @@ import BuildIcon from "@mui/icons-material/Build";
 import InfoIcon from "@mui/icons-material/Info";
 import StoreIcon from "@mui/icons-material/Store";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
-// import { ThemeProvider, createTheme } from "@mui/material/styles";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 
-const Header = ({ toggleTheme, isDarkMode, toggleLanguage, currentLanguage }) => {
+const Header = ({
+  toggleTheme,
+  isDarkMode,
+  toggleLanguage,
+  currentLanguage, // Use currentLanguage here
+}) => {
+  const content = {
+    en: {
+      list0: "Home",
+      list1: "Service",
+      list2: "About",
+      list3: "Product",
+      list4: "Contact",
+    },
+    bn: {
+      list0: "হোম",
+      list1: "পরিষেবা",
+      list2: "সম্পর্কে",
+      list3: "পণ্য",
+      list4: "যোগাযোগ",
+    },
+  };
+
+  // Fallback to English if currentLanguage is undefined
+  const currentContent = content[currentLanguage] || content.en;
+
   return (
-    <AppBar position="sticky" sx={{ backgroundColor: "#1f2937" }}>
+    <AppBar position="sticky" sx={{ backgroundColor: "background.default" }}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         {/* Left: Logo */}
-        <Typography variant="h6" component="div" sx={{ fontWeight: "bold" }}>
+        <Typography variant="h6" component="div" sx={{ fontWeight: "bold", color: "text.primary", }}>
           Logo
         </Typography>
 
@@ -36,7 +60,7 @@ const Header = ({ toggleTheme, isDarkMode, toggleLanguage, currentLanguage }) =>
             justifyContent: "center",
             position: { xs: "fixed", sm: "initial" },
             bottom: { xs: "0", sm: "initial" },
-            background: { xs: "#1f2937", sm: "" },
+            backgroundColor: { xs: "background.default", sm: "transparent" },
             left: { xs: "0", sm: "initial" },
             padding: 1,
           }}
@@ -46,7 +70,10 @@ const Header = ({ toggleTheme, isDarkMode, toggleLanguage, currentLanguage }) =>
             <IconButton
               component={Link}
               to="/"
-              sx={{ display: { xs: "flex", sm: "none" }, color: "#fff" }}
+              sx={{
+                display: { xs: "flex", sm: "none" },
+                color: "text.primary",
+              }}
             >
               <HomeIcon />
             </IconButton>
@@ -55,11 +82,11 @@ const Header = ({ toggleTheme, isDarkMode, toggleLanguage, currentLanguage }) =>
             component={Link}
             to="/"
             sx={{
-              color: "#fff",
+              color: "text.primary",
               display: { xs: "none", sm: "flex" }, // Show full name on sm and above
             }}
           >
-            Home
+            {currentContent.list0}
           </Button>
 
           {/* Service */}
@@ -67,7 +94,10 @@ const Header = ({ toggleTheme, isDarkMode, toggleLanguage, currentLanguage }) =>
             <IconButton
               component={Link}
               to="/service"
-              sx={{ display: { xs: "flex", sm: "none" }, color: "#fff" }}
+              sx={{
+                display: { xs: "flex", sm: "none" },
+                color: "text.primary",
+              }}
             >
               <BuildIcon />
             </IconButton>
@@ -76,11 +106,11 @@ const Header = ({ toggleTheme, isDarkMode, toggleLanguage, currentLanguage }) =>
             component={Link}
             to="/service"
             sx={{
-              color: "#fff",
+              color: "text.primary",
               display: { xs: "none", sm: "flex" }, // Show full name on sm and above
             }}
           >
-            Service
+            {currentContent.list1}
           </Button>
 
           {/* About */}
@@ -88,7 +118,10 @@ const Header = ({ toggleTheme, isDarkMode, toggleLanguage, currentLanguage }) =>
             <IconButton
               component={Link}
               to="/about"
-              sx={{ display: { xs: "flex", sm: "none" }, color: "#fff" }}
+              sx={{
+                display: { xs: "flex", sm: "none" },
+                color: "text.primary",
+              }}
             >
               <InfoIcon />
             </IconButton>
@@ -97,11 +130,11 @@ const Header = ({ toggleTheme, isDarkMode, toggleLanguage, currentLanguage }) =>
             component={Link}
             to="/about"
             sx={{
-              color: "#fff",
+              color: "text.primary",
               display: { xs: "none", sm: "flex" }, // Show full name on sm and above
             }}
           >
-            About
+            {currentContent.list2}
           </Button>
 
           {/* Product */}
@@ -109,7 +142,10 @@ const Header = ({ toggleTheme, isDarkMode, toggleLanguage, currentLanguage }) =>
             <IconButton
               component={Link}
               to="/product"
-              sx={{ display: { xs: "flex", sm: "none" }, color: "#fff" }}
+              sx={{
+                display: { xs: "flex", sm: "none" },
+                color: "text.primary",
+              }}
             >
               <StoreIcon />
             </IconButton>
@@ -118,11 +154,11 @@ const Header = ({ toggleTheme, isDarkMode, toggleLanguage, currentLanguage }) =>
             component={Link}
             to="/product"
             sx={{
-              color: "#fff",
+              color: "text.primary",
               display: { xs: "none", sm: "flex" }, // Show full name on sm and above
             }}
           >
-            Product
+            {currentContent.list3}
           </Button>
 
           {/* Content */}
@@ -130,7 +166,10 @@ const Header = ({ toggleTheme, isDarkMode, toggleLanguage, currentLanguage }) =>
             <IconButton
               component={Link}
               to="/content"
-              sx={{ display: { xs: "flex", sm: "none" }, color: "#fff" }}
+              sx={{
+                display: { xs: "flex", sm: "none" },
+                color: "text.primary",
+              }}
             >
               <ContactMailIcon />
             </IconButton>
@@ -139,31 +178,30 @@ const Header = ({ toggleTheme, isDarkMode, toggleLanguage, currentLanguage }) =>
             component={Link}
             to="/content"
             sx={{
-              color: "#fff",
+              color: "text.primary",
               display: { xs: "none", sm: "flex" }, // Show full name on sm and above
             }}
           >
-            Content
+            {currentContent.list4}
           </Button>
         </Box>
 
-        {/* Right: Help & Theme Toggle */}
+        {/* Right: Theme & Language Toggle */}
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <IconButton onClick={toggleTheme} sx={{ color: "#fff" }}>
+          <IconButton onClick={toggleTheme} sx={{ color: "text.primary", }}>
             {isDarkMode ? <DarkModeIcon /> : <LightModeIcon />}
           </IconButton>
-          {/* Language Toggle Button */}
           {/* Language Toggle */}
           <Button
             variant="outlined"
-            sx={{ color: "#fff", borderColor: "#fff" }}
+            sx={{ color: "text.primary", }}
             onClick={toggleLanguage}
           >
             {currentLanguage === "en" ? "EN" : "বাংলা"}
           </Button>
           <Button
             variant="contained"
-            sx={{ backgroundColor: "#f59e0b", color: "#fff" }}
+            sx={{ backgroundColor: "#f59e0b", color: "text.primary", }}
           >
             Help
           </Button>
