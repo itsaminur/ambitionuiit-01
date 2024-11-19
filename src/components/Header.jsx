@@ -14,11 +14,11 @@ import BuildIcon from "@mui/icons-material/Build";
 import InfoIcon from "@mui/icons-material/Info";
 import StoreIcon from "@mui/icons-material/Store";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+// import { ThemeProvider, createTheme } from "@mui/material/styles";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 
-const Header = ({ toggleTheme, isDarkMode }) => {
+const Header = ({ toggleTheme, isDarkMode, toggleLanguage, currentLanguage }) => {
   return (
     <AppBar position="sticky" sx={{ backgroundColor: "#1f2937" }}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -152,6 +152,15 @@ const Header = ({ toggleTheme, isDarkMode }) => {
           <IconButton onClick={toggleTheme} sx={{ color: "#fff" }}>
             {isDarkMode ? <DarkModeIcon /> : <LightModeIcon />}
           </IconButton>
+          {/* Language Toggle Button */}
+          {/* Language Toggle */}
+          <Button
+            variant="outlined"
+            sx={{ color: "#fff", borderColor: "#fff" }}
+            onClick={toggleLanguage}
+          >
+            {currentLanguage === "en" ? "EN" : "বাংলা"}
+          </Button>
           <Button
             variant="contained"
             sx={{ backgroundColor: "#f59e0b", color: "#fff" }}
