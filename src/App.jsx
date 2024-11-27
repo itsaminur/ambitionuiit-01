@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import About from "./pages/About";
+// import About from "./pages/About";
 import Service from "./pages/Service";
 import Product from "./pages/Product";
 import Content from "./pages/Content";
@@ -28,7 +28,7 @@ const App = () => {
       palette: {
         mode: "light",
         primary: {
-          main: "#1976d2", // Light theme primary color
+          main: "#000000", // Light theme primary color
         },
         secondary: {
           main: "#f50057", // Light theme secondary color
@@ -82,7 +82,7 @@ const App = () => {
             {/* Pass the currentLanguage prop to all pages */}
             <Route path="/" element={<Home language={currentLanguage} />} />
             <Route path="/service" element={<Service language={currentLanguage} />} />
-            <Route path="/about" element={<About language={currentLanguage} />} />
+            {/* <Route path="/about" element={<About language={currentLanguage} />} /> */}
             <Route path="/product" element={<Product language={currentLanguage} />} />
             <Route path="/content" element={<Content language={currentLanguage} />} />
           </Routes>

@@ -1,13 +1,21 @@
 import React from "react";
-import { Typography, Box } from "@mui/material";
+import {
+  useTheme,
+  Typography,
+  Box,
+  Container,
+  Button,
+  Grid2,
+} from "@mui/material";
 import FadeIn from "../components/FadeIn";
 
 const Home = ({ language }) => {
+  const theme = useTheme();
   const content = {
     en: {
       title: "Welcome to Our Website",
       description:
-        "Discover amazing services and products tailored just for you.",
+        "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
     },
     bn: {
       title: "আমাদের ওয়েবসাইটে স্বাগতম",
@@ -20,30 +28,47 @@ const Home = ({ language }) => {
     <FadeIn>
       <Box
         sx={{
-          height: "calc(100vh - 64px)", // Full viewport height
+          height: "calc(100vh - 88px)",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundImage: `url('https://via.placeholder.com/1920x1080')`, // Replace with your image URL
+          backgroundImage: `linear-gradient(to bottom, ${theme.palette.background.default}, ${theme.palette.text.secondary})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          color: "#fff", // Text color for better contrast
-          textAlign: "center",
+          color: "#fff",
         }}
       >
-        <Box
-          sx={{
-            backgroundColor: "rgba(0, 0, 0, 0.6)", // Semi-transparent background
-            padding: 4,
-            borderRadius: 2,
-          }}
-        >
-          <Typography variant="h3" gutterBottom>
-            {currentContent.title}
-          </Typography>
-          <Typography variant="body1">{currentContent.description}</Typography>
-        </Box>
+        <Container maxWidth="md">
+          <Grid2 container spacing={2}>
+            <Grid2 size={{ xs: 6, md: 6 }}>
+              <Box
+                sx={{
+                  backgroundColor: "rgba(0, 0, 0, 0.6)", // Semi-transparent background
+                  padding: 4,
+                  borderRadius: 2,
+                }}
+              >
+                <Typography variant="h3" gutterBottom>
+                  {currentContent.title}
+                </Typography>
+                <Typography variant="body1">
+                  {currentContent.description}
+                </Typography>
+                <Box
+                  sx={{ display: "flex", alignItems: "center", gap: "10px" }}
+                >
+                  <Button variant="contained" sx={{
+                    backgroundColor: "#f59e0b",
+                  }}>Book an appointment</Button>
+                  <Typography variant="body1">01615500006</Typography>
+                </Box>
+              </Box>
+            </Grid2>
+            <Grid2 size={{ xs: 6, md: 6 }}>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</Grid2>
+          </Grid2>
+        </Container>
       </Box>
+      <Container>asdflkj</Container>
     </FadeIn>
   );
 };

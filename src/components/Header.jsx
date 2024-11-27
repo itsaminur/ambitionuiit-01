@@ -11,7 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import BuildIcon from "@mui/icons-material/Build";
-import InfoIcon from "@mui/icons-material/Info";
+// import InfoIcon from "@mui/icons-material/Info";
 import StoreIcon from "@mui/icons-material/Store";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import LightModeIcon from "@mui/icons-material/LightMode";
@@ -47,7 +47,11 @@ const Header = ({
     <AppBar position="sticky" sx={{ backgroundColor: "background.default" }}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         {/* Left: Logo */}
-        <Typography variant="h6" component="div" sx={{ fontWeight: "bold", color: "text.primary", }}>
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ fontWeight: "bold", color: "text.primary" }}
+        >
           Logo
         </Typography>
 
@@ -57,7 +61,7 @@ const Header = ({
             display: "flex",
             gap: 2,
             width: "100%",
-            justifyContent: "center",
+            justifyContent: { xs: "space-around", sm: "center" },
             position: { xs: "fixed", sm: "initial" },
             bottom: { xs: "0", sm: "initial" },
             backgroundColor: { xs: "background.default", sm: "transparent" },
@@ -66,7 +70,7 @@ const Header = ({
           }}
         >
           {/* Home */}
-          <Tooltip title="Home" placement="top">
+          <Tooltip arrow title={currentContent.list0} placement="top">
             <IconButton
               component={Link}
               to="/"
@@ -90,7 +94,7 @@ const Header = ({
           </Button>
 
           {/* Service */}
-          <Tooltip title="Service" placement="top">
+          <Tooltip arrow title={currentContent.list1} placement="top">
             <IconButton
               component={Link}
               to="/service"
@@ -114,7 +118,7 @@ const Header = ({
           </Button>
 
           {/* About */}
-          <Tooltip title="About" placement="top">
+          {/* <Tooltip arrow title={currentContent.list2} placement="top">
             <IconButton
               component={Link}
               to="/about"
@@ -125,20 +129,20 @@ const Header = ({
             >
               <InfoIcon />
             </IconButton>
-          </Tooltip>
-          <Button
-            component={Link}
-            to="/about"
-            sx={{
-              color: "text.primary",
-              display: { xs: "none", sm: "flex" }, // Show full name on sm and above
-            }}
-          >
-            {currentContent.list2}
-          </Button>
+            </Tooltip>
+            <Button
+              component={Link}
+              to="/about"
+              sx={{
+                color: "text.primary",
+                display: { xs: "none", sm: "flex" }, // Show full name on sm and above
+              }}
+            >
+              {currentContent.list2}
+            </Button> */}
 
           {/* Product */}
-          <Tooltip title="Product" placement="top">
+          <Tooltip arrow title={currentContent.list3} placement="top">
             <IconButton
               component={Link}
               to="/product"
@@ -160,9 +164,8 @@ const Header = ({
           >
             {currentContent.list3}
           </Button>
-
           {/* Content */}
-          <Tooltip title="Content" placement="top">
+          <Tooltip arrow title={currentContent.list4} placement="top">
             <IconButton
               component={Link}
               to="/content"
@@ -188,23 +191,33 @@ const Header = ({
 
         {/* Right: Theme & Language Toggle */}
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <IconButton onClick={toggleTheme} sx={{ color: "text.primary", }}>
-            {isDarkMode ? <DarkModeIcon /> : <LightModeIcon />}
+          <IconButton onClick={toggleTheme} sx={{ color: "text.primary" }}>
+            {isDarkMode ? (
+              <Tooltip arrow title="Dark Mode">
+                <DarkModeIcon />
+              </Tooltip>
+            ) : (
+              <Tooltip arrow title="Light Mode">
+                <LightModeIcon />
+              </Tooltip>
+            )}
           </IconButton>
           {/* Language Toggle */}
-          <Button
-            variant="outlined"
-            sx={{ color: "text.primary", }}
-            onClick={toggleLanguage}
-          >
-            {currentLanguage === "en" ? "EN" : "বাংলা"}
-          </Button>
-          <Button
-            variant="contained"
-            sx={{ backgroundColor: "#f59e0b", color: "text.primary", }}
-          >
-            Help
-          </Button>
+          <Tooltip arrow title="Language">
+            <IconButton
+              variant="outlined"
+              sx={{
+                color: "text.primary",
+                fontSize: "1.2rem",
+                fontWeight: "600",
+                width: "40px",
+                height: "40px",
+              }}
+              onClick={toggleLanguage}
+            >
+              {currentLanguage === "en" ? "E" : "অ"}
+            </IconButton>
+          </Tooltip>
         </div>
       </Toolbar>
     </AppBar>

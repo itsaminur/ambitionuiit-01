@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, TextField, Button, Typography } from "@mui/material";
+import { Box, TextField, Button, Typography, Grid2 } from "@mui/material";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import emailjs from "emailjs-com";
 
@@ -50,10 +50,33 @@ const Content = () => {
   };
 
   return (
-    <Box sx={{ padding: 4 }}>
-      <Box sx={{
-        display:'flex', flexDirection:'column', alignItems:'center'
-      }}>
+    <Grid2 container spacing={2}>
+      {/* Google Map */}
+      <Grid2
+        size={{ xs: 6, md: 6 }}
+        sx={{ display: { xs: "none", md: "flex" } }}
+      >
+        {isLoaded ? (
+          <GoogleMap
+            mapContainerStyle={{ height: "100%", width: "100%" }}
+            zoom={16}
+            center={{ lat: 23.8742178, lng: 90.3831819 }} // Replace with your desired location
+          >
+            <Marker position={{ lat: 23.8742178, lng: 90.3831819 }} />
+          </GoogleMap>
+        ) : (
+          <Typography>Loading Map...</Typography>
+        )}
+      </Grid2>
+      <Grid2
+        size={{ xs: 12, md: 6 }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          height: "calc(100vh - 88px)",
+        }}
+      >
         <Typography variant="h4" gutterBottom>
           Contact Us
         </Typography>
@@ -88,7 +111,13 @@ const Content = () => {
             name="phone"
             label="Phone Number"
             value={formData.phone}
-            onChange={handleChange}
+            onChange={(e) => {
+              const re = /^[0-9\b]+$/; // Regex to allow only numbers
+              if (e.target.value === "" || re.test(e.target.value)) {
+                handleChange(e); // Call your handler with validated input
+              }
+            }}
+            type="tel"
             required
           />
           <Button
@@ -109,23 +138,30 @@ const Content = () => {
             Failed to send the message. Please try again later.
           </Typography>
         )}
-      </Box>
-
-      {/* Google Map */}
-      <Box sx={{ marginTop: 4, height: "400px", width: "100%" }}>
-        {isLoaded ? (
-          <GoogleMap
-            mapContainerStyle={{ height: "100%", width: "100%" }}
-            zoom={16}
-            center={{ lat: 23.8742178, lng: 90.3831819 }} // Replace with your desired location
+        {/* <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            "& iframe": {
+              height: "100%",
+              width: "100%",
+              "& *html": {
+                background: "red",
+              },
+            },
+          }}
+        >
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSf2WBoGx1hfASeMTOwSfUunenSVauqJKE5g6LajTbP5jcyXOw/viewform?usp=sf_link"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
           >
-            <Marker position={{ lat: 23.8742178, lng: 90.3831819 }} />
-          </GoogleMap>
-        ) : (
-          <Typography>Loading Map...</Typography>
-        )}
-      </Box>
-    </Box>
+            Loading…
+          </iframe>
+        </Box> */}
+      </Grid2>
+    </Grid2>
   );
 };
 
